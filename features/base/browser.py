@@ -11,6 +11,8 @@ class Browser:
         context.driver.get(data)
     def get_title(context):
         return context.driver.title
+    def get_url(context):
+        return context.driver.current_url
     def get_by_type(context, locator_type):
         if locator_type == 'css':
             return By.CSS_SELECTOR
@@ -26,3 +28,5 @@ class Browser:
         return element
     def click_on_element(context, locator_type, locator):
         context.get_element(locator_type, locator).click()
+    def send_text_to_element(context, locator_type, locator, data):
+        context.get_element(locator_type, locator).send_keys(data)
