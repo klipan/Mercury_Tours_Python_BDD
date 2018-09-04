@@ -35,4 +35,17 @@ def step_impl(context):
 @step('Verify that login is unsuccessful')
 def step_impl(context):
     assert context.browser.get_title() == 'Sign-on: Mercury Tours'
-
+@step('Fill in Flight Details and Preferences')
+def step_impl(context):
+    context.browser.select_from_dropdown('css', '[name=fromPort]', 'Paris')
+    context.browser.select_from_dropdown('December', '[name=fromMonth]', 'css')
+    context.browser.select_from_dropdown('12', '[name=fromDay]', 'css')
+    context.browser.select_from_dropdown('October', '[name=fromMonth]', 'css')
+    context.browser.select_from_dropdown('13', '[name=toDay]', 'css')
+    context.browser.select_from_dropdown('October', '[name=toMonth]', 'css')
+    context.browser.select_from_dropdown('Sydney', '[name=toPort]', 'css')
+    context.browser.click_on_element('css', '[value = Business]')
+    context.browser.select_from_dropdown('Blue Skies Airlines', '[name=airline]', 'css')
+@step('Verify that page with listed flights is showing')
+def step_impl(context):
+    assert context.browser.get_title() == 'Select a Flight: Mercury Tours'

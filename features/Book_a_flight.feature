@@ -18,3 +18,8 @@ Scenario: Successful sign-in
     When Fill out username and password with valid credentials
     And Click Submit
     Then Verify that login is successful
+
+Scenario: Flight finder
+    When Fill in Flight Details and Preferences
+    And Click Submit
+    Then Verify that page with listed flights is showing
