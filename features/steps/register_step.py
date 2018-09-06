@@ -49,3 +49,4 @@ def step_impl(context):
 @step('Verify that page with listed flights is showing')
 def step_impl(context):
     assert context.browser.get_title() == 'Select a Flight: Mercury Tours'
+
