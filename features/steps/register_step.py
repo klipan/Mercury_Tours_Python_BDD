@@ -1,52 +1,54 @@
 from behave import step, then
+from features.pages.elements import Elements
+from features.pages.elements import Data
 
 @step('Go to Mercury Tours site')
 def step_impl(context):
-    context.browser.open('http://newtours.demoaut.com/')
-    assert context.browser.get_title() == 'Welcome: Mercury Tours'
+    context.browser.open(Elements._URL_1)
+    assert context.browser.get_title() == Elements._title_1page
 @step('Click on Register tab')
 def step_impl(context):
-    context.browser.click_on_element('link', 'REGISTER')
+    context.browser.click_on_element(Elements._LINK, Elements._path_register)
 @step('Fill out all required fields with valid credentials')
 def step_impl(context):
-    context.browser.send_text_to_element('css', '[name=email]', 'Pobeda')
-    context.browser.send_text_to_element('css', '[name=password]', 'Hasta la Victoria Siempre')
-    context.browser.send_text_to_element('css', '[name=confirmPassword]', 'Hasta la Victoria Siempre')
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_email, Data._username)
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_password, Data._password)
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_confPass, Data._password)
 @step('Click Submit')
 def step_impl(context):
-    context.browser.click_on_element('css','[type=image]')
+    context.browser.click_on_element(Elements._CSS,Elements._path_submit)
 @step('Verify that submit is successful')
 def step_impl(context):
-    assert context.browser.get_url() == 'http://newtours.demoaut.com/create_account_success.php'
+    assert context.browser.get_url() == Elements._URL_2
 @step('Click on sign-in link')
 def step_impl(context):
-    context.browser.click_on_element('css', '[href="mercurysignon\.php"]')
+    context.browser.click_on_element(Elements._CSS, Elements._path_singIn)
 @step('Fill out username and password with valid credentials')
 def step_impl(context):
-    context.browser.send_text_to_element('css', '[name=userName]', 'Pobeda')
-    context.browser.send_text_to_element('css', '[name=password]', 'Hasta la Victoria Siempre')
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_username, Data._username)
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_password, Data._password)
 @step('Verify that login is successful')
 def step_impl(context):
-    assert context.browser.get_title() == 'Find a Flight: Mercury Tours:'
+    assert context.browser.get_title() == Elements._title_2page
 @step('Fill out username and password with error credentials')
 def step_impl(context):
-    context.browser.send_text_to_element('css', '[name=userName]', 'SSS123')
-    context.browser.send_text_to_element('css', '[name=password]', '123FDEWT')
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_username, Data._error_username)
+    context.browser.send_text_to_element(Elements._CSS, Elements._path_password, Data._error_password)
 @step('Verify that login is unsuccessful')
 def step_impl(context):
-    assert context.browser.get_title() == 'Sign-on: Mercury Tours'
+    assert context.browser.get_title() == Elements._title_3page
 @step('Fill in Flight Details and Preferences')
 def step_impl(context):
-    context.browser.select_from_dropdown('css', '[name=fromPort]', 'Paris')
-    context.browser.select_from_dropdown('December', '[name=fromMonth]', 'css')
-    context.browser.select_from_dropdown('12', '[name=fromDay]', 'css')
-    context.browser.select_from_dropdown('October', '[name=fromMonth]', 'css')
-    context.browser.select_from_dropdown('13', '[name=toDay]', 'css')
-    context.browser.select_from_dropdown('October', '[name=toMonth]', 'css')
-    context.browser.select_from_dropdown('Sydney', '[name=toPort]', 'css')
-    context.browser.click_on_element('css', '[value = Business]')
-    context.browser.select_from_dropdown('Blue Skies Airlines', '[name=airline]', 'css')
+    context.browser.select_from_dropdown(Elements._CSS, Elements._path_city_from, Data._city_from)
+    context.browser.select_from_dropdown('December', Elements._path_month_from, Elements._CSS)
+    context.browser.select_from_dropdown('12', Elements._path_day_from, Elements._CSS)
+    context.browser.select_from_dropdown('October', Elements._path_month_from, Elements._CSS)
+    context.browser.select_from_dropdown('13', Elements._path_day_to, Elements._CSS)
+    context.browser.select_from_dropdown('October', Elements._path_month_to, Elements._CSS)
+    context.browser.select_from_dropdown(Data._city_to, Elements._path_city_to, Elements._CSS)
+    context.browser.click_on_element(Elements._CSS, Elements._business_class)
+    context.browser.select_from_dropdown('Blue Skies Airlines', Elements._path_airline, Elements._CSS)
 @step('Verify that page with listed flights is showing')
 def step_impl(context):
-    assert context.browser.get_title() == 'Select a Flight: Mercury Tours'
+    assert context.browser.get_title() == Elements._title_4page
 
